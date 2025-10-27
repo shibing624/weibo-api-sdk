@@ -1,62 +1,223 @@
-# Weibo-api
+# Weibopy
 
 一个免登陆获取新浪微博数据的Python库，简单易用
 
-## Getting Started
+[![PyPI version](https://img.shields.io/pypi/v/weibopy.svg)](https://pypi.org/project/weibopy/)
+[![Python Version](https://img.shields.io/pypi/pyversions/weibopy.svg)](https://pypi.org/project/weibopy/)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![Downloads](https://img.shields.io/pypi/dm/weibopy.svg)](https://pypi.org/project/weibopy/)
+
+## 特性
+
+- 🚀 简单易用的 API 接口
+- 📦 免登陆获取微博数据
+- 🎯 支持获取用户信息、微博列表、文章、粉丝、关注等
+- 🐍 纯 Python 3.8+ 实现
+- 📝 完整的代码示例
+
+## 安装
+
+### 从 PyPI 安装（推荐）
+
+```bash
+pip install weibopy
+```
+
+### 从源码安装
+
+```bash
+git clone https://github.com/hukaixuan/weibopy.git
+cd weibopy
+pip install -e .
+```
+
+### 开发模式安装
+
+```bash
+pip install -e ".[dev]"  # 包含开发工具
+```
+
+## 快速开始
+
+### ⚠️ 重要提示
+
+由于微博的反爬虫机制，**必须提供 Cookie** 才能正常访问 API。
+
+### 配置步骤
+
+1. **复制配置文件**
+```bash
+cp .env.example .env
+```
+
+2. **获取 Cookie**
+   - 访问 [https://m.weibo.cn](https://m.weibo.cn) 并登录
+   - 按 `F12` 打开开发者工具
+   - 切换到 `Network` 标签，刷新页面
+   - 找到任意请求，复制 `Cookie` 值
+
+3. **编辑 .env 文件**
+```bash
+WEIBO_COOKIE=your_actual_cookie_string_here
+```
+
+详细教程请参见：[HOW_TO_GET_COOKIE.md](HOW_TO_GET_COOKIE.md)
+
+### 代码示例
 
 ```python
-from weibo_api.client import WeiboClient
-client = WeiboClient()
+from weibopy import WeiboClient
+from dotenv import load_dotenv
+import os
 
-p = client.people('5623741644')  # 用户ID，后期加可以根据昵称创建用户
-print(type(p.name))
-print(u"用户名：{}".format(p.name))
-print(u"用户简介：{}".format(p.description))
-print(u"他关注的用户数：{}".format(p.follow_count))
-print(u"关注他的用户数：{}".format(p.followers_count))
-print(u"他最近发布的微博：")
-print("==================================================")
-# page(1) 表示获取第一页的内容， 
-# 可以用all()方法获取所有内容(对于非必要情况，不要获取全部，因为对于有大量内容的用户，需要进行大量网络请求)
-for status in p.statuses.page(1):    
-    print(u"微博动态：{}".format(status.id))
-    print(u"发布时间：{}".format(status.created_at))
-    print(u"微博内容概要：{}".format(status.text))
-    print(u"转发数：{}".format(status.reposts_count))
-    print(u"点赞数：{}".format(status.attitudes_count))
-    print(u"评论数：{}".format(status.comments_count))
-    print(u"发布于：{}".format(status.source))
-    print("==================================================")
- 
-print('他的粉丝：')
-print('#'*50)
-for follower in p.followers.page(1):
-    print(follower.name)
+# 加载 .env 文件中的配置
+load_dotenv()
 
-print('他关注的用户：')
-print('#'*50)
-for follow in p.follows.page(1):
-    print(follow.name)
+# 创建客户端（会自动读取 WEIBO_COOKIE 环境变量）
+cookie = os.getenv('WEIBO_COOKIE')
+client = WeiboClient(cookie=cookie)
 
-print('他的文章：')
-print('#'*50)
-for article in p.articles.page(1):
-    print(article.text)
+# 获取用户信息
+user = client.people('5623741644')  # 用户ID
+print(f"用户名: {user.name}")
+print(f"用户简介: {user.description}")
+print(f"关注数: {user.follow_count}")
+print(f"粉丝数: {user.followers_count}")
+
+# 获取用户最新微博
+print("\n最近发布的微博：")
+for status in user.statuses.page(1):
+    print(f"微博ID: {status.id}")
+    print(f"发布时间: {status.created_at}")
+    print(f"内容: {status.text}")
+    print(f"点赞数: {status.attitudes_count}")
+    print(f"评论数: {status.comments_count}")
+    print(f"转发数: {status.reposts_count}")
+    print("-" * 50)
+
+# 获取粉丝列表
+print("\n粉丝列表：")
+for follower in user.followers.page(1):
+    print(f"- {follower.name}")
+
+# 获取关注列表
+print("\n关注列表：")
+for follow in user.follows.page(1):
+    print(f"- {follow.name}")
+
+# 获取文章列表
+print("\n文章列表：")
+for article in user.articles.page(1):
+    print(f"- {article.text}")
 ```
 
-### Installing
+## 示例代码
 
+更多详细示例请查看 [examples](examples/) 目录：
+
+- [basic_usage.py](examples/basic_usage.py) - 基本使用示例，包含所有核心功能
+
+### 运行示例
+
+1. 配置 Cookie（参见上方配置步骤）
+2. 运行示例：
+
+```bash
+python examples/basic_usage.py
 ```
-pip install weibo-api
+
+**注意**：示例代码会自动从 `.env` 文件读取 Cookie 配置。
+
+## API 文档
+
+### WeiboClient
+
+主要的客户端类，用于创建各种微博对象。
+
+#### 方法
+
+- `people(uid)` - 获取用户信息
+- `status(status_id)` - 获取微博详情
+- `statuses(uid)` - 获取用户全部微博列表
+- `origin_statuses(uid)` - 获取用户原创微博列表
+- `article(article_id)` - 获取文章详情
+- `articles(uid)` - 获取用户文章列表
+- `followers(uid)` - 获取粉丝列表
+- `follow(uid)` - 获取关注列表
+
+### People 对象
+
+用户对象，包含用户的基本信息和相关数据。
+
+#### 属性
+
+- `id` - 用户ID
+- `name` - 昵称
+- `description` - 简介
+- `gender` - 性别
+- `avatar` - 头像URL
+- `followers_count` - 粉丝数
+- `follow_count` - 关注数
+- `statuses` - 微博列表
+- `articles` - 文章列表
+- `followers` - 粉丝列表
+- `follows` - 关注列表
+
+### Status 对象
+
+微博对象，包含微博的详细信息。
+
+#### 属性
+
+- `id` - 微博ID
+- `text` - 微博内容
+- `created_at` - 发布时间
+- `source` - 发布来源
+- `attitudes_count` - 点赞数
+- `comments_count` - 评论数
+- `reposts_count` - 转发数
+- `user` - 发布用户
+- `pic_urls` - 图片URL列表
+
+## 注意事项
+
+- 请合理控制请求频率，避免对微博服务器造成过大压力
+- `page(n)` 方法用于获取指定页的数据
+- `all()` 方法会获取所有数据，对于数据量大的用户请谨慎使用
+- 所有 API 都是免登陆的，但受微博反爬虫机制限制
+
+## 开发
+
+### 环境要求
+
+- Python 3.8+
+- requests >= 2.10.0
+- python-dotenv (用于读取 .env 配置文件)
+
+### 运行测试
+
+```bash
+# TODO: 添加测试
 ```
 
-### TODO
+## TODO
 
-- 搜索接口
-- 根据用户昵称创建用户
-- 头条文章获取
-- 文章评论
-- 文档
-- 测试
+- [ ] 搜索接口
+- [ ] 根据用户昵称创建用户
+- [ ] 头条文章获取优化
+- [ ] 文章评论功能
+- [ ] 完善文档
+- [ ] 添加单元测试
+- [ ] 添加更多示例
 
+## 许可证
 
+本项目采用 MIT 许可证 - 详见 [LICENSE](LICENSE) 文件
+
+## 贡献
+
+欢迎提交 Issue 和 Pull Request！
+
+## 致谢
+
+感谢所有为这个项目做出贡献的开发者。

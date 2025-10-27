@@ -1,13 +1,10 @@
-# coding=utf-8
-from __future__ import absolute_import
-from __future__ import unicode_literals
 import abc
 
-from ..utils.exception import GetDataErrorException, MyJSONDecodeError
+from ..utils.exception import GetDataErrorException, JSONDecodeError
 from ..utils.normal import normal_attr
 
 
-class Base(object):
+class Base:
     def __init__(self, weibo_obj_id, cache, session):
         """
 
@@ -70,8 +67,14 @@ class Base(object):
                 'a valid Weibo {0} JSON data'.format(self.__class__.__name__),
             )
             try:
-                self._data = res.json()
-            except MyJSONDecodeError:
+                json_data = res.json()
+                # 微博 API 返回格式: {"ok": 1, "data": {...}}
+                # 提取 data 字段作为实际数据
+                if isinstance(json_data, dict) and 'data' in json_data:
+                    self._data = json_data['data']
+                else:
+                    self._data = json_data
+            except JSONDecodeError:
                 raise e
 
     @abc.abstractmethod
@@ -83,21 +86,18 @@ class Base(object):
         """
         return ''
 
-    # noinspection PyMethodMayBeStatic
     def _build_params(self):
         """
         子类可以重载这一函数，提供请求 API 时要传递的参数。默认值为 None。
         """
         return None
 
-    # noinspection PyMethodMayBeStatic
     def _build_data(self):
         """
         子类可以重载这一函数，提供请求 API 时要传递的数据。默认值为 None。
         """
         return None
 
-    # noinspection PyMethodMayBeStatic
     def _method(self):
         """
         子类可以重载这一函数，提供 HTTP 请求的类型，默认值为 GET。

@@ -1,7 +1,3 @@
-# coding=utf-8
-
-from __future__ import unicode_literals, print_function
-
 import functools
 
 __all__ = ['normal_attr']
@@ -9,7 +5,6 @@ __all__ = ['normal_attr']
 
 def normal_attr(name_in_json=None):
     """
-
     本装饰器的作用为：
 
     1. 标识这个属性为常规属性。
@@ -22,14 +17,14 @@ def normal_attr(name_in_json=None):
     3. 尝试从 ``cache`` 中取需要的属性，成功则返回。
     4. 判断属性名是不是 ``id``。不是转 5，是则返回被装饰函数的执行结果。（因为
        ``id`` 属性一般在 :any:`_build_url` 方法中需要引用，
-       如果这时向知乎请求数据会造成死循环。）
+       如果这时向微博请求数据会造成死循环。）
     5. 则使用 API 请求数据。然后转 2。
 
     ..  seealso:: 关于 cache 和 data
 
-        请看 :any:`Base` 类中的\ :any:`说明 <Base.__init__>`。
+        请看 :any:`Base` 类中的 :any:`说明 <Base.__init__>`。
 
-    :param str|unicode name_in_json: 需要取的属性在 JSON 中的名字。可空，默认值为
+    :param str name_in_json: 需要取的属性在 JSON 中的名字。可空，默认值为
       使用此装饰器的方法名。
     """
     def wrappers_wrapper(func):

@@ -1,12 +1,12 @@
-# coding=utf-8
 import math
 
 from ..utils.normal import normal_attr
 from ..utils.streaming import streaming
 from .base import Base
-from ..config.urls import (
+from .urls import (
     STATUS_DETAIL_URL,
-    ORI_WEIBO_LIST_URL, WEIBO_LIST_URL)
+    ORI_WEIBO_LIST_URL,
+    WEIBO_LIST_URL)
 
 
 class Status(Base):
@@ -15,7 +15,7 @@ class Status(Base):
     """
 
     def __init__(self, aid, cache, session):
-        super(Status, self).__init__(aid, cache, session)
+        super().__init__(aid, cache, session)
 
     def _build_url(self):
         return STATUS_DETAIL_URL.format(id=self._id)
@@ -58,7 +58,7 @@ class Statuses(Base):
         :param session: 
         :param original: 是否原创，默认False 
         """
-        super(Statuses, self).__init__(id, cache, session)
+        super().__init__(id, cache, session)
         self._page_num = 1
         self._original = original
 
@@ -98,21 +98,22 @@ class Statuses(Base):
         :param page_num: 页数 
         :return: 
         """
-        from ..weibo.people import People
+        from .people import People
         self.refresh()
         self._page_num = page_num
         for card in filter(lambda x: hasattr(x, 'mblog'), self._cards):
             mblog = card.mblog
+            raw_data = mblog.raw_data()
             status = Status(mblog.id, None, self._session)
-            status.text = mblog.raw_data().get('text')
-            status.created_at = mblog.raw_data().get('created_at')
-            status.source = mblog.raw_data().get('mblog.source')
-            status.thumbnail_pic = mblog.raw_data().get('thumbnail_pic')
-            status.bmiddle_pic = mblog.raw_data().get('bmiddle_pic')
-            status.original_pic = mblog.raw_data().get('original_pic')
-            status.is_paid = mblog.raw_data().get('is_paid')
+            status.text = raw_data.get('text')
+            status.created_at = raw_data.get('created_at')
+            status.source = raw_data.get('mblog.source')
+            status.thumbnail_pic = raw_data.get('thumbnail_pic')
+            status.bmiddle_pic = raw_data.get('bmiddle_pic')
+            status.original_pic = raw_data.get('original_pic')
+            status.is_paid = raw_data.get('is_paid')
             status.user = People(mblog.user.id, None, self._session)
-            status.pic_urls = [pic.get('url') for pic in mblog.raw_data().get('pics', [])]
+            status.pic_urls = [pic.get('url') for pic in raw_data.get('pics', [])]
             yield status
 
     def page_from_to(self, from_page, to_page):

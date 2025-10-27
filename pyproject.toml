@@ -1,0 +1,80 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "weibopy"
+version = "0.1.0"
+description = "一个免登陆获取新浪微博数据的Python库，简单易用"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "MIT"}
+keywords = ["weibo", "api", "scraper", "social-media", "微博"]
+authors = [
+    {name = "xuming", email = "xuming624@qq.com"}
+]
+maintainers = [
+    {name = "xuming", email = "xuming624@qq.com"}
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Web Environment",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Internet :: WWW/HTTP",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Software Development :: Libraries",
+]
+
+dependencies = [
+    "requests>=2.10.0",
+    "python-dotenv>=0.19.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "black>=23.0",
+    "flake8>=6.0",
+    "mypy>=1.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/xuming624/weibopy"
+Documentation = "https://github.com/xuming624/weibopy#readme"
+Repository = "https://github.com/xuming624/weibopy"
+Issues = "https://github.com/xuming624/weibopy/issues"
+Changelog = "https://github.com/xuming624/weibopy/blob/master/changelog.md"
+
+[tool.setuptools]
+packages = ["weibopy", "weibopy.config", "weibopy.utils", "weibopy.weibo"]
+
+[tool.setuptools.package-data]
+weibopy = ["py.typed"]
+
+[tool.black]
+line-length = 100
+target-version = ['py38', 'py39', 'py310', 'py311', 'py312']
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-v --cov=weibopy --cov-report=html --cov-report=term"
+
+[tool.mypy]
+python_version = "3.12"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false
+

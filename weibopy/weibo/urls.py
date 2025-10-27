@@ -1,5 +1,3 @@
-# coding=utf-8
-
 WEIBO_API_ROOT = 'https://m.weibo.cn/'
 
 # 用户详情

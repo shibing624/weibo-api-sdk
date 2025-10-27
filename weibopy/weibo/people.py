@@ -1,11 +1,8 @@
-# coding=utf-8
-from __future__ import absolute_import
-from __future__ import unicode_literals
 import math
 
 from ..utils.streaming import streaming
 from .base import Base
-from ..config.urls import (
+from .urls import (
     PEOPLE_DETAIL_URL,
     FOLLOWS_LIST_URL,
     FOLLOWERS_LIST_URL,
@@ -14,7 +11,7 @@ from ..config.urls import (
 
 class People(Base):
     def __init__(self, uid, cache, session):
-        super(People, self).__init__(uid, cache, session)
+        super().__init__(uid, cache, session)
 
     def _build_url(self):
         return PEOPLE_DETAIL_URL.format(id=self._id)
@@ -98,7 +95,7 @@ class People(Base):
         他的微博动态
         :return: 
         """
-        from ..weibo.status import Statuses
+        from .status import Statuses
         return Statuses(self._id, None, self._session)
 
     @property
@@ -107,7 +104,7 @@ class People(Base):
         他的原创微博
         :return: 
         """
-        from ..weibo.status import Statuses
+        from .status import Statuses
         return Statuses(self._id, None, self._session, original=True)
 
     @property
@@ -116,7 +113,7 @@ class People(Base):
         他的文章
         :return: 
         """
-        from ..weibo.article import Articles
+        from .article import Articles
         return Articles(self._id, None, self._session)
 
 
@@ -129,7 +126,7 @@ class Peoples(Base):
         :param session: 
         :param utype: 用户类型，follower表示他的粉丝，follow表示他关注的用户
         """
-        super(Peoples, self).__init__(uid, cache, session)
+        super().__init__(uid, cache, session)
         self._page_num = 1
         self._utype = utype
 

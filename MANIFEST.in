@@ -1,4 +1,13 @@
-include README.md LICENSE changelog.md
-recursive-include test test*.py __init__.py
-graft docs
-prune docs/_build
+include README.md
+include LICENSE
+include requirements.txt
+include .env.example
+include HOW_TO_GET_COOKIE.md
+include changelog.md
+include PUBLISHING.md
+recursive-include examples *.py *.md
+recursive-exclude tests *
+global-exclude __pycache__
+global-exclude *.py[co]
+global-exclude .DS_Store
+global-exclude .env

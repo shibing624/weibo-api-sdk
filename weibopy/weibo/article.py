@@ -1,11 +1,8 @@
-# coding=utf-8
-from __future__ import absolute_import
-from __future__ import unicode_literals
 import math
 from ..utils.normal import normal_attr
 from ..utils.streaming import streaming
 from .base import Base
-from ..config.urls import (
+from .urls import (
     ARTICLE_DETAIL_URL,
     ARTICLE_LIST_URL)
 
@@ -15,7 +12,7 @@ class Article(Base):
     头条文章
     """
     def __init__(self, aid, cache, session):
-        super(Article, self).__init__(aid, cache, session)
+        super().__init__(aid, cache, session)
 
     def _build_url(self):
         return ARTICLE_DETAIL_URL.format(id=self._id)
@@ -114,7 +111,7 @@ class Articles(Base):
     """
 
     def __init__(self, uid, cache, session):
-        super(Articles, self).__init__(uid, cache, session)
+        super().__init__(uid, cache, session)
         self._page_num = 1
 
     def _build_url(self):
@@ -152,24 +149,25 @@ class Articles(Base):
         :param page_num: 页数 
         :return: 
         """
-        from ..weibo.people import People
-        from ..weibo.status import Status
+        from .people import People
+        from .status import Status
         self.refresh()
         self._page_num = page_num
         for card in filter(lambda x: hasattr(x, 'mblog'), self._cards):
             mblog = card.mblog
+            raw_data = mblog.raw_data()
             # 该article实际也是status，只是在内容中可能会存在文章链接
             # TODO：后期解析出文章内容中的真实文章链接，取出头条文章
             article = Status(mblog.id, None, self._session)
-            article.text = mblog.raw_data().get('text')
-            article.created_at = mblog.raw_data().get('created_at')
-            article.source = mblog.raw_data().get('mblog.source')
-            article.thumbnail_pic = mblog.raw_data().get('thumbnail_pic')
-            article.bmiddle_pic = mblog.raw_data().get('bmiddle_pic')
-            article.original_pic = mblog.raw_data().get('original_pic')
-            article.is_paid = mblog.raw_data().get('is_paid')
+            article.text = raw_data.get('text')
+            article.created_at = raw_data.get('created_at')
+            article.source = raw_data.get('mblog.source')
+            article.thumbnail_pic = raw_data.get('thumbnail_pic')
+            article.bmiddle_pic = raw_data.get('bmiddle_pic')
+            article.original_pic = raw_data.get('original_pic')
+            article.is_paid = raw_data.get('is_paid')
             article.user = People(mblog.user.id, None, self._session)
-            article.pic_urls = [pic.get('url') for pic in mblog.raw_data().get('pics', [])]
+            article.pic_urls = [pic.get('url') for pic in raw_data.get('pics', [])]
             yield article
 
     def page_from_to(self, from_page, to_page):

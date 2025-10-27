@@ -1,7 +1,3 @@
-# coding=utf-8
-
-from __future__ import unicode_literals
-
 import functools
 import copy
 
@@ -108,15 +104,11 @@ class StreamingJSON:
         return item in self._json
 
     def __bool__(self):
-        return True if self._json else False
-
-    def __nonzero__(self):
-        return self.__bool__()
+        return bool(self._json)
 
 
 def streaming(name_in_json=None, use_cache=True):
     """
-
     本装饰器的作用为：
 
     1. 标识这个属性为流式 JSON 属性。
@@ -126,7 +118,7 @@ def streaming(name_in_json=None, use_cache=True):
 
     1. 如果 ``use_cache`` 为真，转 2，否则转 3。
     2. 尝试从 ``cache`` 中取需要的数据。失败转 3，成功转 5。
-    3. 如果 ``data`` 不存在，则调用知乎 API 获取。
+    3. 如果 ``data`` 不存在，则调用微博 API 获取。
     4. 尝试从 ``data`` 中取需要的数据。失败则
        将被装饰方法的调用结果视为取到的数据。
     5. 如果取到数据是 ``dict`` 或 ``list`` 类型，则返回使用
@@ -134,7 +126,7 @@ def streaming(name_in_json=None, use_cache=True):
 
     ..  seealso:: 关于 cache 和 data
 
-        请看 :any:`Base` 类中的\ :any:`说明 <Base.__init__>`。
+        请看 :any:`Base` 类中的 :any:`说明 <Base.__init__>`。
 
     :param name_in_json: 要取的数据在 JSON
       中的名字。可空，默认为使用本装饰器的的方法名。

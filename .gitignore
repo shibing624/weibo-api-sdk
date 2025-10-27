@@ -4,3 +4,11 @@ venv/
 build/
 dist/
 *.egg-info/
+__pycache__/
+.env
+.DS_Store
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg
