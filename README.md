@@ -130,7 +130,7 @@ python examples/basic_usage.py
 
 output:
 
-<img src="https://github.com/shibing624/weibo-api-sdk/blob/main/docs/basic_demo_snap.png" width="500" />
+<img src="https://github.com/shibing624/weibo-api-sdk/blob/master/docs/basic_demo_snap.png" width="500" />
 **注意**：示例代码会自动从 `.env` 文件读取 Cookie 配置。
 
 ## API 文档
@@ -304,9 +304,8 @@ mypy weibo_api_sdk/
 - **微信**: xuming624（备注：姓名-公司-Weibo）
 
 <p align="center">
-  <img src="https://github.com/shibing624/weibo-api-sdk/blob/main/docs/wechat.jpeg" width="200" />
+  <img src="https://github.com/shibing624/weibo-api-sdk/blob/master/docs/wechat.jpeg" width="200" />
 </p>
-
 ## 许可证
 
 本项目采用 MIT 许可证 - 详见 [LICENSE](LICENSE) 文件
