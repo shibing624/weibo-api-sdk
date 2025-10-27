@@ -68,7 +68,7 @@ WEIBO_COOKIE=your_actual_cookie_string_here
 ### 代码示例
 
 ```python
-from weibopy import WeiboClient  # 注意：导入用 weibopy，安装用 weibo-api-sdk
+from weibo_api_sdk import WeiboClient
 from dotenv import load_dotenv
 import os
 
@@ -131,6 +131,8 @@ python examples/basic_usage.py
 output:
 
 <img src="https://github.com/shibing624/weibo-api-sdk/blob/master/docs/basic_demo_snap.png" width="500" />
+
+
 **注意**：示例代码会自动从 `.env` 文件读取 Cookie 配置。
 
 ## API 文档
@@ -213,77 +215,6 @@ pip install -e ".[dev]"
 pip install -r requirements.txt
 ```
 
-### 运行测试
-
-项目包含完整的单元测试套件，使用 pytest 进行测试。
-
-```bash
-# 运行所有测试
-pytest
-
-# 运行测试并显示详细信息
-pytest -v
-
-# 运行测试并生成覆盖率报告
-pytest --cov=weibo_api_sdk --cov-report=html --cov-report=term
-
-# 运行特定测试文件
-pytest tests/test_client.py
-
-# 运行特定测试类
-pytest tests/test_client.py::TestWeiboClient
-
-# 运行特定测试方法
-pytest tests/test_client.py::TestWeiboClient::test_client_init_with_cookie
-```
-
-### 测试结构
-
-```
-tests/
-├── __init__.py           # 测试包初始化
-├── conftest.py           # pytest 配置和共享 fixtures
-├── test_base.py          # 测试 Base 基类
-├── test_client.py        # 测试 WeiboClient 客户端
-├── test_people.py        # 测试用户相关功能
-├── test_status.py        # 测试微博相关功能
-└── test_utils.py         # 测试工具函数和异常
-```
-
-### 测试覆盖率
-
-测试覆盖了以下主要功能：
-
-- ✅ 客户端初始化和配置
-- ✅ Cookie 处理和请求头设置
-- ✅ 用户信息获取和属性访问
-- ✅ 微博列表获取和分页
-- ✅ 粉丝和关注列表
-- ✅ 数据缓存机制
-- ✅ 异常处理
-- ✅ 工具函数和 StreamingJSON
-
-### 代码格式化
-
-```bash
-# 使用 black 格式化代码
-black weibo_api_sdk/
-
-# 检查代码风格
-flake8 weibo_api_sdk/
-
-# 类型检查
-mypy weibo_api_sdk/
-```
-
-## 贡献指南
-
-欢迎贡献代码！请确保：
-
-1. 添加适当的测试用例
-2. 运行所有测试并确保通过：`pytest`
-3. 使用 black 格式化代码：`black .`
-4. 更新相关文档
 
 ## TODO
 
@@ -292,7 +223,7 @@ mypy weibo_api_sdk/
 - [ ] 头条文章获取优化
 - [ ] 文章评论功能
 - [ ] 完善文档
-- [x] 添加单元测试 ✅
+- [x] 添加单元测试
 - [ ] 添加更多示例
 - [ ] 增加测试覆盖率到 90%+
 - [ ] 添加 GitHub Actions CI/CD
@@ -303,9 +234,10 @@ mypy weibo_api_sdk/
 - **邮箱**: xuming624@qq.com
 - **微信**: xuming624（备注：姓名-公司-Weibo）
 
-<p align="center">
+<p>
   <img src="https://github.com/shibing624/weibo-api-sdk/blob/master/docs/wechat.jpeg" width="200" />
 </p>
+
 ## 许可证
 
-本项目采用 MIT 许可证 - 详见 [LICENSE](LICENSE) 文件
+本项目采用 MIT 许可证
