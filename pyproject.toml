@@ -69,7 +69,7 @@ testpaths = ["tests"]
 python_files = ["test_*.py"]
 python_classes = ["Test*"]
 python_functions = ["test_*"]
-addopts = "-v --cov=weibo_api_sdk --cov-report=html --cov-report=term"
+addopts = "-v"
 
 [tool.mypy]
 python_version = "3.12"
