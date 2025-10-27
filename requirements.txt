@@ -1,2 +1,10 @@
+# 核心依赖（与 pyproject.toml 保持一致）
 requests>=2.10.0
 python-dotenv>=0.19.0
+
+# 开发依赖（可选，也可以用 pip install -e ".[dev]" 安装）
+# pytest>=7.0
+# pytest-cov>=4.0
+# black>=23.0
+# flake8>=6.0
+# mypy>=1.0

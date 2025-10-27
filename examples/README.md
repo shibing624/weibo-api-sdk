@@ -1,12 +1,12 @@
-# Weibo API 使用示例
+# Weibo API SDK 使用示例
 
-这个目录包含了 weibo-api 的使用示例，帮助您快速上手。
+这个目录包含了 weibo-api-sdk 的使用示例，帮助您快速上手。
 
 ## 示例列表
 
 ### 1. basic_usage.py - 基本使用示例
 
-演示了 weibo-api 的核心功能：
+演示了 Weibo API SDK 的核心功能：
 
 - **获取用户信息**: 包括昵称、简介、性别、粉丝数等
 - **获取用户微博**: 获取用户发布的微博列表
@@ -108,7 +108,7 @@ uid = "1815418641"  # 替换为你想查询的微博用户ID
 ### WeiboClient 主要方法
 
 ```python
-from weibo_api import WeiboClient
+from weibo_api_sdk import WeiboClient
 
 client = WeiboClient()
 
@@ -182,5 +182,5 @@ statuses.all()                      # 获取全部微博
 ## 问题反馈
 
 如果在使用过程中遇到问题，请在 GitHub 上提交 Issue：
-https://github.com/hukaixuan/weibo-api/issues
+https://github.com/shibing624/weibo-api-sdk/issues
 
