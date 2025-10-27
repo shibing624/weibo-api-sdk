@@ -6,6 +6,7 @@
 [![Python Version](https://img.shields.io/pypi/pyversions/weibo-api-sdk.svg)](https://pypi.org/project/weibo-api-sdk/)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Downloads](https://img.shields.io/pypi/dm/weibo-api-sdk.svg)](https://pypi.org/project/weibo-api-sdk/)
+[![Tests](https://img.shields.io/badge/tests-passing-brightgreen.svg)](https://github.com/shibing624/weibo-api-sdk)
 
 ## 特性
 
@@ -14,6 +15,7 @@
 - 🎯 支持获取用户信息、微博列表、文章、粉丝、关注等
 - 🐍 纯 Python 3.8+ 实现
 - 📝 完整的代码示例
+- ✅ 完善的单元测试
 
 ## 安装
 
@@ -126,6 +128,9 @@ for article in user.articles.page(1):
 python examples/basic_usage.py
 ```
 
+output:
+
+<img src="https://github.com/shibing624/weibo-api-sdk/blob/main/docs/basic_demo_snap.png" width="500" />
 **注意**：示例代码会自动从 `.env` 文件读取 Cookie 配置。
 
 ## API 文档
@@ -192,13 +197,93 @@ python examples/basic_usage.py
 
 - Python 3.8+
 - requests >= 2.10.0
-- python-dotenv (用于读取 .env 配置文件)
+- python-dotenv >= 0.19.0
+
+### 开发环境设置
+
+```bash
+# 克隆仓库
+git clone https://github.com/shibing624/weibo-api-sdk.git
+cd weibo-api-sdk
+
+# 安装开发依赖
+pip install -e ".[dev]"
+
+# 或使用 requirements.txt
+pip install -r requirements.txt
+```
 
 ### 运行测试
 
+项目包含完整的单元测试套件，使用 pytest 进行测试。
+
 ```bash
-# TODO: 添加测试
+# 运行所有测试
+pytest
+
+# 运行测试并显示详细信息
+pytest -v
+
+# 运行测试并生成覆盖率报告
+pytest --cov=weibo_api_sdk --cov-report=html --cov-report=term
+
+# 运行特定测试文件
+pytest tests/test_client.py
+
+# 运行特定测试类
+pytest tests/test_client.py::TestWeiboClient
+
+# 运行特定测试方法
+pytest tests/test_client.py::TestWeiboClient::test_client_init_with_cookie
 ```
+
+### 测试结构
+
+```
+tests/
+├── __init__.py           # 测试包初始化
+├── conftest.py           # pytest 配置和共享 fixtures
+├── test_base.py          # 测试 Base 基类
+├── test_client.py        # 测试 WeiboClient 客户端
+├── test_people.py        # 测试用户相关功能
+├── test_status.py        # 测试微博相关功能
+└── test_utils.py         # 测试工具函数和异常
+```
+
+### 测试覆盖率
+
+测试覆盖了以下主要功能：
+
+- ✅ 客户端初始化和配置
+- ✅ Cookie 处理和请求头设置
+- ✅ 用户信息获取和属性访问
+- ✅ 微博列表获取和分页
+- ✅ 粉丝和关注列表
+- ✅ 数据缓存机制
+- ✅ 异常处理
+- ✅ 工具函数和 StreamingJSON
+
+### 代码格式化
+
+```bash
+# 使用 black 格式化代码
+black weibo_api_sdk/
+
+# 检查代码风格
+flake8 weibo_api_sdk/
+
+# 类型检查
+mypy weibo_api_sdk/
+```
+
+## 贡献指南
+
+欢迎贡献代码！请确保：
+
+1. 添加适当的测试用例
+2. 运行所有测试并确保通过：`pytest`
+3. 使用 black 格式化代码：`black .`
+4. 更新相关文档
 
 ## TODO
 
@@ -207,17 +292,21 @@ python examples/basic_usage.py
 - [ ] 头条文章获取优化
 - [ ] 文章评论功能
 - [ ] 完善文档
-- [ ] 添加单元测试
+- [x] 添加单元测试 ✅
 - [ ] 添加更多示例
+- [ ] 增加测试覆盖率到 90%+
+- [ ] 添加 GitHub Actions CI/CD
+
+## 联系方式
+
+- **GitHub Issues**: [报告问题或功能请求](https://github.com/shibing624/weibo-api-sdk/issues)
+- **邮箱**: xuming624@qq.com
+- **微信**: xuming624（备注：姓名-公司-Weibo）
+
+<p align="center">
+  <img src="https://github.com/shibing624/weibo-api-sdk/blob/main/docs/wechat.jpeg" width="200" />
+</p>
 
 ## 许可证
 
 本项目采用 MIT 许可证 - 详见 [LICENSE](LICENSE) 文件
-
-## 贡献
-
-欢迎提交 Issue 和 Pull Request！
-
-## 致谢
-
-感谢所有为这个项目做出贡献的开发者。

@@ -1,0 +1,43 @@
+on:
+  workflow_dispatch: # Manually running a workflow
+name: Linux build
+jobs:
+  test-ubuntu:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+#        python-version: [ 3.7, 3.8, 3.9 ]
+        python-version: [ 3.12 ]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Cache pip
+        uses: actions/cache@v4
+        if: startsWith(runner.os, 'Linux')
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+      - name: Cache huggingface models
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/huggingface
+          key: ${{ runner.os }}-huggingface-
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install from pypi
+        run: |
+          pip install -U weibo_api_sdk
+          python -c "import weibo_api_sdk; print(weibo_api_sdk.__version__)"
+          pip uninstall -y weibo_api_sdk
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install .
+          pip install pytest
+      - name: PKG-TEST
+        run: |
+          python -m pytest

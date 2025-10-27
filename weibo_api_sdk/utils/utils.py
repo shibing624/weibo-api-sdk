@@ -5,12 +5,13 @@ from .exception import UnimplementedException
 
 def get_class_from_name(name, module_filename=None):
     """从类名获取对应的类对象"""
-    cls_name = name.capitalize() if name.islower() else name
-    file_name = module_filename or cls_name.lower()
+    # 统一转换为首字母大写的类名格式
+    cls_name = name.lower().capitalize()
+    file_name = module_filename or name.lower()
     try:
         imported_module = importlib.import_module(
             f'.{file_name}',
-            'weibo_api.weibo'
+            'weibo_api_sdk.weibo'
         )
         return getattr(imported_module, cls_name)
     except (ImportError, AttributeError):
