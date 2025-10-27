@@ -16,7 +16,7 @@ def read_file(filename):
 
 # 读取版本号
 version = {}
-with open("weibo_api/__init__.py", encoding='utf-8') as f:
+with open("weibopy/__init__.py", encoding='utf-8') as f:
     for line in f:
         if line.startswith('__version__'):
             exec(line, version)
@@ -35,7 +35,7 @@ setup(
     },
     license='MIT',
     author='xuming',
-    author_email='hukx.michael@gmail.com',
+    author_email='xuming624@qq.com',
     description='一个免登陆获取新浪微博数据的Python库，简单易用',
     long_description=read_file('README.md'),
     long_description_content_type='text/markdown',
