@@ -2,9 +2,10 @@ import math
 from ..utils.normal import normal_attr
 from ..utils.streaming import streaming
 from .base import Base
-from .urls import (
+from ..config.urls import (
     ARTICLE_DETAIL_URL,
-    ARTICLE_LIST_URL)
+    ARTICLE_LIST_URL
+)
 
 
 class Article(Base):

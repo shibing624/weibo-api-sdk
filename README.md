@@ -1,11 +1,11 @@
-# Weibopy
+# Weibo API SDK
 
 一个免登陆获取新浪微博数据的Python库，简单易用
 
-[![PyPI version](https://img.shields.io/pypi/v/weibopy.svg)](https://pypi.org/project/weibopy/)
-[![Python Version](https://img.shields.io/pypi/pyversions/weibopy.svg)](https://pypi.org/project/weibopy/)
+[![PyPI version](https://img.shields.io/pypi/v/weibo-api-sdk.svg)](https://pypi.org/project/weibo-api-sdk/)
+[![Python Version](https://img.shields.io/pypi/pyversions/weibo-api-sdk.svg)](https://pypi.org/project/weibo-api-sdk/)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-[![Downloads](https://img.shields.io/pypi/dm/weibopy.svg)](https://pypi.org/project/weibopy/)
+[![Downloads](https://img.shields.io/pypi/dm/weibo-api-sdk.svg)](https://pypi.org/project/weibo-api-sdk/)
 
 ## 特性
 
@@ -20,14 +20,14 @@
 ### 从 PyPI 安装（推荐）
 
 ```bash
-pip install weibopy
+pip install weibo-api-sdk
 ```
 
 ### 从源码安装
 
 ```bash
-git clone https://github.com/hukaixuan/weibopy.git
-cd weibopy
+git clone https://github.com/shibing624/weibo-api-sdk.git
+cd weibo-api-sdk
 pip install -e .
 ```
 
@@ -66,7 +66,7 @@ WEIBO_COOKIE=your_actual_cookie_string_here
 ### 代码示例
 
 ```python
-from weibopy import WeiboClient
+from weibopy import WeiboClient  # 注意：导入用 weibopy，安装用 weibo-api-sdk
 from dotenv import load_dotenv
 import os
 

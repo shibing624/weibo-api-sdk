@@ -3,10 +3,11 @@ import math
 from ..utils.normal import normal_attr
 from ..utils.streaming import streaming
 from .base import Base
-from .urls import (
+from ..config.urls import (
     STATUS_DETAIL_URL,
     ORI_WEIBO_LIST_URL,
-    WEIBO_LIST_URL)
+    WEIBO_LIST_URL
+)
 
 
 class Status(Base):

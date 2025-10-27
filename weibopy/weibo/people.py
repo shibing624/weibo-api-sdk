@@ -2,7 +2,7 @@ import math
 
 from ..utils.streaming import streaming
 from .base import Base
-from .urls import (
+from ..config.urls import (
     PEOPLE_DETAIL_URL,
     FOLLOWS_LIST_URL,
     FOLLOWERS_LIST_URL,

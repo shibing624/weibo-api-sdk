@@ -23,15 +23,15 @@ with open("weibopy/__init__.py", encoding='utf-8') as f:
             break
 
 setup(
-    name='weibopy',
+    name='weibo-api-sdk',
     version=version.get('__version__', '0.1.0'),
     packages=find_packages(exclude=['tests', 'examples', 'docs']),
     include_package_data=True,
-    url='https://github.com/shibing624/weibopy',
+    url='https://github.com/shibing624/weibo-api-sdk',
     project_urls={
-        'Documentation': 'https://github.com/shibing624/weibopy#readme',
-        'Source': 'https://github.com/shibing624/weibopy',
-        'Issues': 'https://github.com/shibing624/weibopy/issues',
+        'Documentation': 'https://github.com/shibing624/weibo-api-sdk#readme',
+        'Source': 'https://github.com/shibing624/weibo-api-sdk',
+        'Issues': 'https://github.com/shibing624/weibo-api-sdk/issues',
     },
     license='MIT',
     author='xuming',

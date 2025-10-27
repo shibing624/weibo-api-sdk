@@ -18,12 +18,12 @@
 #### 安装依赖
 
 ```bash
-# 安装项目
-cd weibo-api
-pip install -e .
+# 方法1：从 PyPI 安装
+pip install weibo-api-sdk
 
-# 安装额外依赖（用于读取 .env 文件）
-pip install python-dotenv
+# 方法2：从源码安装
+cd weibo-api-sdk
+pip install -e .
 ```
 
 #### 配置 Cookie
