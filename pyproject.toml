@@ -8,8 +8,7 @@ version = "0.1.1"
 description = "一个免登陆获取新浪微博数据的Python库，简单易用"
 readme = "README.md"
 requires-python = ">=3.8"
-license = "MIT"
-license-files = ["LICENSE"]
+license = {text = "MIT"}
 keywords = ["weibo", "api", "scraper", "social-media", "微博"]
 authors = [
     {name = "xuming", email = "xuming624@qq.com"}
